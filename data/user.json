@@ -1,0 +1,14 @@
+[
+  {
+    "email": "rahulshettyacademy",
+    "password": "learning",
+    "role": "admin",
+    "designation": "stud"
+  },
+  {
+    "email": "rahulshettyacademy",
+    "password": "learnin",
+    "role": "admin",
+    "designation": "stud"
+  }
+]
