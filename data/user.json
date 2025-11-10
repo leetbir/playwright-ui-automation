@@ -3,12 +3,12 @@
     "email": "rahulshettyacademy",
     "password": "learning",
     "role": "admin",
-    "designation": "stud"
+    "designation": "Student"
   },
   {
     "email": "rahulshettyacademy",
     "password": "learnin",
     "role": "admin",
-    "designation": "stud"
+    "designation": "Teacher"
   }
 ]

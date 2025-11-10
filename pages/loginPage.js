@@ -24,24 +24,24 @@ export class LoginPage {
     this.signInButton = page.locator("#signInBtn");
   }
 
-  async login(role, designationLabel) {
+  async login(username, password, role, designationLabel) {
     // navigating to login page and used login path as relative
     await this.page.goto("/loginpagePractise/");
     await this.page.waitForLoadState("domcontentloaded");
 
     // environment validation
     const { LOGINUSER, LOGINPASS } = process.env;
-     if (!LOGINUSER || !LOGINPASS) {
+    if (!LOGINUSER || !LOGINPASS) {
       throw new Error(
         'Missing env vars: LOGINUSER and/or LOGINPASS. Check `${environment}` loading.'
       );
     }
 
     // entering username
-    await this.username.fill(LOGINUSER);
+    await this.username.fill(username);
 
     // entering password
-    await this.password.fill(LOGINPASS);
+    await this.password.fill(password);
 
     // selecting role admin or user
     await this.roleRadioButton(role).check();
@@ -55,16 +55,26 @@ export class LoginPage {
     // click on sign in button
     await this.signInButton.click();
 
-    await this.page.waitForURL(/shop/, { timeout: 5000 });
+    let atShopPage = false;
 
-    const url = this.page.url();
+    try {
 
-    if (url.includes("shop")) {
+      await this.page.waitForURL(/shop/, { timeout: 5000 });
+      atShopPage = true;
+    }
+    catch (_) {
+      atShopPage = false;
+
+    }
+
+    if (atShopPage) {
       console.log("Login Successful - Navigated to Shop Page");
       return true;
     } else {
       console.log("Login Failed - Did not Navigate to Shop Page");
       return false;
+
     }
+
   }
 }
