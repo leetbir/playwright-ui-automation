@@ -12,8 +12,9 @@ test('Navigate to Base URL', async ({ page }) => {
 
 test('Verify successful login', async ({ page }) => {
   const loginPage = new LoginPage(page);
+  const username = process.env.LOGINUSER, password = process.env.LOGINPASS;
   const role = 'admin', designationLabel = 'Student';
-  const success = await loginPage.login(role,designationLabel);
+  const success = await loginPage.login(username,password,role,designationLabel);
   expect(success).toBeTruthy();
 });
 
