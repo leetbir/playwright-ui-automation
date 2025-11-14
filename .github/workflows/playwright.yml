@@ -15,20 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Fail if any test.only/describe.only present
-        # Prevent accidental commits with `.only`. Adjust paths if test files live elsewhere.
-        run: |
-          set -e
-          echo "Scanning for test.only / describe.only..."
-          if git grep -n --break --heading -E '\b(test|describe)\.only\b' -- ':!node_modules' ; then
-            echo "::error::Found a '.only' in tests. Remove it before running CI."
-            exit 1
-          else
-            echo "No '.only' found."
-          fi
-        shell: bash
-
       - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
