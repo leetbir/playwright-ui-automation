@@ -17,7 +17,7 @@ test.describe("Internet Herokuapp tests", () => {
     );
   });
 
-  test.only("TC2:Checkboxes:check and uncheck", async ({ page, heroPage }) => {
+  test("TC2:Checkboxes:check and uncheck", async ({ page, heroPage }) => {
     await heroPage.goto();
     await heroPage.clickOn(heroPage.checkboxesExample);
 
