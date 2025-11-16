@@ -143,3 +143,9 @@ dist
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# venv
+.venv/
+venv/
+*.pyc
+__pycache__/
