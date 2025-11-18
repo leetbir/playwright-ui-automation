@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/PomFixture.js";
+import { test, expect } from "../../fixtures/PomFixture.js";
 
 test.describe("Internet Herokuapp tests", () => {
   // Runs once before all tests in this describe block
