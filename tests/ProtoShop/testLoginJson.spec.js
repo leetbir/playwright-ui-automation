@@ -1,6 +1,6 @@
 
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage.js';
+import { LoginPage } from '../../pages/ProtoShop/loginPage.js';
 import users from '../../data/user.json' assert { type: 'json' };
 
 

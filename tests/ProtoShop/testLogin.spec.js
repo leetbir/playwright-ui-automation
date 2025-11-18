@@ -1,6 +1,6 @@
 
 import { test,expect} from '@playwright/test';
-import { LoginPage } from '../pages/loginPage.js';
+import { LoginPage } from '../../pages/ProtoShop/loginPage.js';
 
 test('Navigate to Base URL', async ({ page }) => {
   console.log("Base URL is: " + process.env.BASE_URL);
