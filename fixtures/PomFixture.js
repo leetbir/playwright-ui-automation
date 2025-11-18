@@ -1,7 +1,7 @@
 import {test as baseTest} from '@playwright/test';
 
-import {HeroApp} from "../pages/heroApp.js";
-import { LoginPage } from "../pages/loginPage.js";
+import {HeroApp} from "../pages/Herokuapp/heroApp.js";
+import { LoginPage } from "../pages/ProtoShop/loginPage.js";
 
 // fixture file that creates the object of each page class
 // loginPage and heroPage are fixture names
