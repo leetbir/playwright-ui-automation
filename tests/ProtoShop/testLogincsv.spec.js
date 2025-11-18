@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pages/loginPage.js";
+import { LoginPage } from "../../pages/ProtoShop/loginPage.js";
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse/sync";

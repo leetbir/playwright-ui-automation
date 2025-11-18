@@ -1,4 +1,4 @@
-import { UIActions } from '../utility/UIActions.js';
+import { UIActions } from '../../utility/UIActions.js';
 
 export class LoginPage {
   constructor(page) {

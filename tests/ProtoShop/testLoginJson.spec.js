@@ -1,7 +1,7 @@
 
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage.js';
-import users from '../data/user.json' assert { type: 'json' };
+import users from '../../data/user.json' assert { type: 'json' };
 
 
 for (const user of users) {
