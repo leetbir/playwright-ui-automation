@@ -8,6 +8,16 @@ export class HeroApp {
     // defined locators of different example pages
     this.basicAuthExample = page.getByRole("link", { name: "Basic Auth" });
     this.checkboxesExample = page.getByRole("link", { name: "Checkboxes" });
+    this.contextMenuExample = page.getByRole("link", { name: "Context Menu" });
+    this.contextMenuSpot = page.locator("#hot-spot");
+    this.digestAuthExample = page.getByRole("link", { name: "Digest Authentication" });
+    this.dissappearingExample = page.getByRole("link", { name: "Disappearing Elements" });
+    this.dissappearingElements = page.locator("ul li");
+    this.dragDropExample = page.getByRole("link", { name: "Drag and Drop" });
+    this.dragElementA = page.locator("#column-a");
+    this.dragElementB = page.locator("#column-b");
+    this.dropDownExample = page.getByRole("link", { name: "Dropdown" });
+    this.dropDown= page.locator("#dropdown");
     
     // other supporing locators
     this.paragraph = page.locator("p");
@@ -17,6 +27,9 @@ export class HeroApp {
 
   async goto() {
     await this.page.goto("https://the-internet.herokuapp.com");
+    await this.page.waitForLoadState();
+    await this.page.waitForLoadState('networkidle');
+
   }
 
   // getter returns a Playwright locator when accessed

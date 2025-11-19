@@ -5,7 +5,7 @@ import users from '../../data/user.json' assert { type: 'json' };
 
 
 for (const user of users) {
-  test(`Verify successful login on ${user.designation}`, async ({ page }) => {
+  test(`Login: Verify successful login on ${user.designation} using json`, async ({ page }) => {
     const loginPage = new LoginPage(page);
     const username = user.email, password = user.password;
     const role = user.role, designationLabel = user.designation;
@@ -14,4 +14,3 @@ for (const user of users) {
   });
 
 }
-
