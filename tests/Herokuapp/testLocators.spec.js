@@ -1,10 +1,6 @@
 import { test, expect } from "../../fixtures/PomFixture.js";
 
 test.describe("Internet Herokuapp tests", () => {
-  // Runs once before all tests in this describe block
-  // test.beforeAll(async () => {
-  //   console.log("⚙️ Starting Internet Herokuapp test suite...");
-  // });
 
   test.beforeEach(async ({ heroPageContext }) => {
     await heroPageContext.goto();
@@ -19,18 +15,21 @@ test.describe("Internet Herokuapp tests", () => {
   });
 
   test("TC2:Checkboxes:check and uncheck", async ({ heroPageContext }) => {
-
     await heroPageContext.clickOn(heroPageContext.checkboxesExample);
 
-    const state = await heroPageContext.checkCheckbox("checkbox 1");
-    console.log("checkbox state:", state);
+    const checkbox1 = heroPageContext.checkbox("checkbox 1");
 
-    // Assertion belongs here (test layer)
-    expect(state).toBe(true);
+    await checkbox1.check();
+    console.log("Checkbox 1 is checked now");
 
-    const aftestate = await heroPageContext.uncheckCheckbox("checkbox 1");
-    console.log("Final checkbox state:", aftestate);
-    expect(aftestate).toBe(false);
+    // Assertion
+    await expect(checkbox1).toBeChecked();
+
+    await checkbox1.uncheck();
+    console.log("Checkbox 1 is unchecked now");
+
+    // Assertion
+    await expect(checkbox1).not.toBeChecked();
 
   });
 
@@ -110,5 +109,49 @@ test.describe("Internet Herokuapp tests", () => {
 
   });
 
-});
+  test('TC8: Dynamic Controls - Add/Remove Checkbox', async ({ heroPageContext }) => {
+    await heroPageContext.clickOn(heroPageContext.dynamicControlsExample);
 
+    // checking checkbox presence
+    const checkbox1 = heroPageContext.dynamicPageCheckbox;
+    await expect(checkbox1).toBeVisible();
+    // checking add button should not present
+    await expect(heroPageContext.addButton).not.toBeVisible();
+    // checking remove button should present
+    await expect(heroPageContext.removeButton).toBeVisible();
+
+    // now as we right state clicking on checkbox
+    await checkbox1.check("A checkbox");
+    await expect(checkbox1).toBeChecked();
+
+
+    // now clicking on remove button
+    await heroPageContext.clickOn(heroPageContext.removeButton);
+    await expect(checkbox1).not.toBeVisible();
+    await expect(heroPageContext.addButton).toBeVisible();
+    await expect(heroPageContext.removeButton).not.toBeVisible();
+    // check for text It's gone!
+    await expect(heroPageContext.textLocator("It's gone!")).toBeVisible();
+  });
+
+  test('TC9: Dynamic Controls - Enable/Disable', async ({ heroPageContext }) => {
+    await heroPageContext.clickOn(heroPageContext.dynamicControlsExample);
+    const inputField = heroPageContext.inputField;
+    if (await heroPageContext.enableButton.isVisible()) {
+      expect(inputField).toBeDisabled();
+      // make it enabled
+      await heroPageContext.clickOn(heroPageContext.enableButton);
+      await expect(inputField).toBeEnabled();
+      //type in somethign
+      await inputField.fill("Testing enable disable");
+      // now disable it again
+      await heroPageContext.clickOn(heroPageContext.disableButton);
+      await expect(inputField).toBeDisabled();
+    }
+    else {
+      expect(inputField).toBeEnabled();
+    }
+
+  })
+
+});
