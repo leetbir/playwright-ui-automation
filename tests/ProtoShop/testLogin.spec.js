@@ -1,5 +1,5 @@
 
-import { test,expect} from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/ProtoShop/loginPage.js';
 
 test('Navigate to Base URL', async ({ page }) => {
@@ -10,12 +10,10 @@ test('Navigate to Base URL', async ({ page }) => {
   await expect(page).toHaveTitle(/Selenium, API Testing, Software Testing & More QA Tutorials  | Rahul Shetty Academy/);
 });
 
-test('Verify successful login', async ({ page }) => {
+test('Login:Verify successful login', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const username = process.env.LOGINUSER, password = process.env.LOGINPASS;
   const role = 'admin', designationLabel = 'Student';
-  const success = await loginPage.login(username,password,role,designationLabel);
+  const success = await loginPage.login(username, password, role, designationLabel);
   expect(success).toBeTruthy();
 });
-
-

@@ -16,7 +16,7 @@ const records = parse(csvContent, {
 // Create one test per CSV row
 for (const user of records) {
   // use a stable test title so Playwright can identify tests
-  test(`Login test for ${user.email}`, async ({ page }) => {
+  test(`Login:Verify successful login with ${user.email} from csv`, async ({ page }) => {
     const loginPage = new LoginPage(page);
     const username = user.email,
       password = user.password;
