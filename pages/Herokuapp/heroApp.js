@@ -1,4 +1,4 @@
-import {UIActions} from '../../utility/UIActions.js'
+import { UIActions } from '../../utility/UIActions.js'
 
 export class HeroApp {
   constructor(page) {
@@ -17,12 +17,20 @@ export class HeroApp {
     this.dragElementA = page.locator("#column-a");
     this.dragElementB = page.locator("#column-b");
     this.dropDownExample = page.getByRole("link", { name: "Dropdown" });
-    this.dropDown= page.locator("#dropdown");
-    
+    this.dropDown = page.locator("#dropdown");
+    this.dynamicControlsExample = page.getByRole("link", { name: "Dynamic Controls" });
+    this.enableButton = page.getByRole("button", { name: "Enable" });
+    this.disableButton = page.getByRole("button", { name: "Disable" });
+    this.addButton = page.getByRole("button", { name: "Add" });
+    this.removeButton = page.getByRole("button", { name: "Remove" });
+    this.inputField = page.locator("#input-example input[type='text']");
+
     // other supporing locators
     this.paragraph = page.locator("p");
-    this.textLocator = value => page.locator(`text=${value}`);
-    this.checkbox = page.getByRole("checkbox");
+    this.textLocator = value => page.locator(`text=${value}`);;
+    this.checkbox = name =>
+      page.locator(`xpath=//form[@id="checkboxes"]//input[@type="checkbox" and normalize-space(following-sibling::text()[1]) = "${name}"]`);
+    this.dynamicPageCheckbox = page.locator("//div[@id='checkbox']//input[@type='checkbox']");
   }
 
   async goto() {
@@ -42,45 +50,37 @@ export class HeroApp {
     await this.page.waitForLoadState();
   }
 
-  checkboxByName(name) {
-    return this.page.locator(
-      `//form[@id="checkboxes"]//input[@type="checkbox" and following-sibling::text()[contains(normalize-space(.),"${name}")]]`
-    );
-  }
-
-  async checkCheckbox(name){
-    const checkbox = this.checkboxByName(name);
-    await checkbox.waitFor({state: 'visible'});
+  async checkCheckbox(name) {
+    const checkbox = this.checkbox(name);
+    await checkbox.waitFor({ state: 'visible' });
     let isChecked = await checkbox.isChecked();
 
-    try{
-       if(!(isChecked))
-      {
+    try {
+      if (!(isChecked)) {
         await checkbox.check();
         console.log(`${name} has been checked`)
-        isChecked=true
+        isChecked = true
 
-    }else{
-      console.log(`${name} already checked`)
+      } else {
+        console.log(`${name} already checked`)
+      }
     }
+    catch (error) {
+      console.error(`Failed to check ${name}:`, error);
     }
-    catch(error){
-       console.error(`Failed to check ${name}:`, error);
-    }
-   
+
     return isChecked;
   }
 
-
   // Uncheck the checkbox by name
   async uncheckCheckbox(name) {
-    const checkbox = this.checkboxByName(name);
+    const checkbox = this.checkbox(name);
     await checkbox.waitFor({ state: 'visible' });
     let isChecked = await checkbox.isChecked();
     if (isChecked) {
       await checkbox.uncheck();
       console.log(`${name} has been unchecked`);
-      isChecked=false
+      isChecked = false
     } else {
       console.log(`${name} was already unchecked`);
     }
